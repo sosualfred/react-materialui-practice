@@ -1,18 +1,32 @@
 import React from 'react';
-import { Typography, AppBar, Card, IconButton, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Button  } from '@material-ui/core';
-import { MenuOutlined } from '@material-ui/icons';
+import { Typography, AppBar, Card, Drawer, Divider, IconButton, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Button  } from '@material-ui/core';
+import { MenuOutlined, ChevronRight, ChevronLeft } from '@material-ui/icons';
+import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles';
 
 const cards = [...Array(20).keys()];
 
 const App = () => {
     const classes = useStyles();
+    const theme = useTheme();
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
+
     return (
-        <>
+        <React.Fragment>
             <CssBaseline />
-            <AppBar position="fixed">
+            <AppBar>
                 <Toolbar>
-                    <IconButton edge="start" className={classes.icon} color="inherit" aria-label="menu">
+                    <IconButton edge="start" className={classes.icon} color="inherit" 
+                    aria-label="menu" onClick={handleDrawerOpen}>
                         <MenuOutlined />
                     </IconButton>
                     <Typography variant="h6">
@@ -20,6 +34,23 @@ const App = () => {
                     </Typography>
                 </Toolbar>
             </AppBar>
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="left"
+                open={open}
+                classes={{
+                paper: classes.drawerPaper,
+                }}
+            >
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        {theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
+                    </IconButton>
+                </div>
+                <Divider />
+            </Drawer>
+            <div className={classes.offset} />
             <main>
                 <div className={classes.container}>
                     <Container maxWidth="sm">
@@ -81,7 +112,7 @@ const App = () => {
                     Something here to give the footer a purpose
                 </Typography>
             </footer>
-        </>
+        </React.Fragment>
     );
 }
 
