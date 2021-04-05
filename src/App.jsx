@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography, AppBar, Card, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Button  } from '@material-ui/core';
-import { PhotoCamera } from '@material-ui/icons';
+import { Typography, AppBar, Card, IconButton, CardActions, CardContent, CardMedia, CssBaseline, Grid, Toolbar, Container, Button  } from '@material-ui/core';
+import { MenuOutlined } from '@material-ui/icons';
 import useStyles from './styles';
 
 const cards = [...Array(20).keys()];
@@ -10,9 +10,11 @@ const App = () => {
     return (
         <>
             <CssBaseline />
-            <AppBar position="relative">
+            <AppBar position="fixed">
                 <Toolbar>
-                    <PhotoCamera className={classes.icon}/>
+                    <IconButton edge="start" className={classes.icon} color="inherit" aria-label="menu">
+                        <MenuOutlined />
+                    </IconButton>
                     <Typography variant="h6">
                         Photo Album
                     </Typography>
